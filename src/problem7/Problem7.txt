@@ -1,0 +1,39 @@
+/*Calculate total balance in each address from balances table
+    - while we assume that each address will only transact using one type of denom only, 
+        I have included denom into the GROUP BY statement such that the resultant table 
+        can include information regarding denom for subsequent calculations
+        => this would not affect the table obtained as each address will only take up one row after this SELECTion
+*/
+SELECT address, denom, SUM(amount) as total_balance
+FROM balances
+GROUP BY address, denom
+
+/*Get addresses with at least $500 inside*/
+SELECT address 
+FROM (
+    SELECT address, denom, SUM(amount) as total_balance
+    FROM balances
+    GROUP BY address, denom  
+)
+WHERE (
+    (denom == 'usdc' AND total_balance >= 500/0.000001)
+    OR (denom == 'swth' AND total_balance >= 500/0.00000005)
+    OR (denom == 'tmz' AND total_balance >= 500/0.003)
+)
+
+/*Final answer*/
+SELECT DISTINCT address 
+FROM trades
+WHERE block_height >730000
+    AND address in 
+        SELECT address 
+        FROM (
+            SELECT address, denom, SUM(amount) as total_balance
+            FROM balances
+            GROUP BY address, denom
+        )
+        WHERE (
+            (denom = 'usdc' AND total_balance >= 500/0.000001)
+            OR (denom = 'swth' AND total_balance >= 500/0.00000005)
+            OR (denom = 'tmz' AND total_balance >= 500/0.003)
+        )
