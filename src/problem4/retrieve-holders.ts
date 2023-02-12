@@ -1,4 +1,4 @@
-import {ethers} from 'ethers';
+import {BigNumberish, ethers} from 'ethers';
 
 const ALCHEMPY_API_KEY = "wSiPPDEmVvoB-sccIMb1KsLm1-CouRyP"
 const addresses = [
@@ -8,25 +8,20 @@ const addresses = [
 ] 
 const network = "homestead";
 
-// Specify your own API keys
-// Each is optional, and if you omit it the default
-// API key for that service will be used.
 const provider = ethers.getDefaultProvider(network, {
     alchemy: ALCHEMPY_API_KEY,
 });
 
 const retrieve_holders = async () =>  {
-    var results:{ address: string; amount: bigint; }[] = []
-    for (var i in addresses) {
-        provider.getBalance(i).then((balance) => 
-        {
-            results.push({
-                address: i,
-                amount:balance
-        })})
+    var results:{ address: string; amount: BigInt; }[] = []
+    for (var i =0;i<addresses.length;i++){
+        results.push({ 
+            address: addresses[i], 
+            amount: await provider.getBalance(addresses[i])
+        })
     }
-    console.log(results)
-    return results
+    const res = await Promise.all(results)
+    return res 
 }
 
 retrieve_holders().then( console.log)
