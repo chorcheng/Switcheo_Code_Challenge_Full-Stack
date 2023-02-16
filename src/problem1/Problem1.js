@@ -1,10 +1,8 @@
 var sum_to_n_a = function(n) {
-    // your code here
     return (n*(n+1)/2);
 };
 
 var sum_to_n_b = function(n) {
-    // your code here
     var sum = 0;
     for (var i = 0; i < n+1; i++){
         sum += i;
@@ -13,7 +11,6 @@ var sum_to_n_b = function(n) {
 };
 
 var sum_to_n_c = function(n) {
-    // your code here
     if (n == 1){
         return n;
     }
