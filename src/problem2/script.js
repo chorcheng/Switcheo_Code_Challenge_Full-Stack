@@ -10,10 +10,22 @@ function onSubmit() {
     console.log("eth_addr: " + eth_addr + " eth_amt: " + eth_amt + " user_otp: " + user_otp)
 
     if (eth_addr.match(hexa_regex)==null){
-
+        // if (document.getElementById("addr-error").innerHTML == " "){
+        //     document.getElementById("addr-error").innerHTML = "Address should be a hexadecimal string"
+        // }
+        // else {
+        //     document.getElementById("addr-error").innerHTML = " "
+        // }
+        document.getElementById("input-address").setCustomValidity('Please enter hexadecimal address');
     }
-    if (isNaN(eth_amt)){
-
+    if (isNaN(eth_amt) || parseInt(eth_amt, 10) < 0){
+        // if (document.getElementById("amt-error").innerHTML == " "){
+        //     document.getElementById("amt-error").innerHTML = "Invalid transaction amount"
+        // }
+        // else {
+        //     document.getElementById("amt-error").innerHTML = " "
+        // }
+        document.getElementById("input-amount").setCustomValidity('Please enter valid transaction amount');
     }
     if (user_otp == otp) {
         otp = Math.floor(100000+ Math.random()*900000);
@@ -44,7 +56,14 @@ function onSubmit() {
         } ,7*1000)
     }
     else{
-
+        // if (document.getElementById("otp-error").innerHTML == " "){
+        //     document.getElementById("otp-error").innerHTML = "Invalid otp"
+        // }
+        // else {
+        //     document.getElementById("otp-error").innerHTML = " "
+        // }
+        document.getElementById("input-otp").setCustomValidity('Invalid OTP');
+        
     }
 }
 

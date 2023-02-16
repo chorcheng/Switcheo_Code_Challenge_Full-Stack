@@ -10,20 +10,16 @@
 
 <body>
 
-  <div classname = "left-panel">
+  <div class = "left-panel">
   <h3>Send ETH</h3>
-  <!-- You may reorganise the whole HTML, as long as your form achieves the same effect. -->
   <form id = "form" onsubmit="return !1">
-    <!-- <label for="input-address">ETH Address</label> -->
-    <input type = "text" id="input-address" placeholder="ETH Address" required/>
-    <div id = "addr-error" class="input-error"></div>
-    <!-- <label for="input-amount">Amount to send</label> -->
-    <input type = "text" inputmode = "numeric" id="input-amount" placeholder="Amount to send" required/>
-    <div id = "amt-error" class="input-error"></divid></div>
+    <input type = "text" id="input-address" placeholder="ETH Address" required oninput="this.setCustomValidity('')" 
+    />
 
-    <!-- <label for="input-otp">OTP Authentication</label> -->
-    <input type="text" inputmode="numeric" id="input-otp" placeholder="OTP Authentication" required minlength="6" maxlength="6"/>
-    <div id = "otp-error" class="input-error"></div>
+    <input type = "text" inputmode = "numeric" id="input-amount" required oninput="this.setCustomValidity('')" 
+    placeholder="Amount to send" required 
+    />
+    <input type="text" inputmode="numeric" id="input-otp" placeholder="OTP Authentication" required minlength="6" maxlength="6" oninput="this.setCustomValidity('')" />
 
     <button onclick="onSubmit()">SEND TOKENS</button>
   </form>
@@ -41,9 +37,9 @@
     </thead>
     <tbody id = "transaction_table_body">
       <tr class = "blank_row" id = "blank_row">
-        <td> </td>
-        <td> </td>
-        <td> </td>
+        <td> - </td>
+        <td> - </td>
+        <td> - </td>
       </tr>
     </tbody>
       </table>
